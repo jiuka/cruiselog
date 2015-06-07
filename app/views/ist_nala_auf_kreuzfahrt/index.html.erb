@@ -1,0 +1,28 @@
+<% content_for :site_title do %>Ist Nala auf Kreutzfahrt?<% end %>
+<div class="display">
+  <h1 id="title"><%= @message %></h1>
+  <div id="DateCountdown" data-date="<%= @date.inspect %>" style="width: 100%px; padding: 0px; box-sizing: border-box;"></div>
+</div>
+
+<script>
+      var kf_counter = null;
+
+      kf_counter = $("#DateCountdown").TimeCircles({
+        use_background: false,
+        animation: "tick",
+        time: {
+            Days: { color: "#C0C8CF", text: "Tagen" },
+            Hours: { color: "#C0C8CF", text: "Stunden" },
+            Minutes: { color: "#C0C8CF", text: "Minuten" },
+            Seconds: { color: "#C0C8CF", text: "Sekunden" }
+        }
+        }).addListener(function(unit,value,total) {
+          if (total % 60 == 0) {
+            console.log(total);
+          }
+        }, type="all");
+
+      $( window ).resize(function() {
+        kf_counter.rebuild();
+      });
+      </script>

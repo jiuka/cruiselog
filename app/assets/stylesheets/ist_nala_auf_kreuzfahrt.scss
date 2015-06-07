@@ -1,0 +1,28 @@
+// Place all the styles related to the IstNalaAufKreuzfahrt controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body.controller-ist_nala_auf_kreuzfahrt {
+
+    height: 100%;
+
+    background-image: asset-url("qm2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    div.display {
+        width: 100%;
+        margin: auto;
+        margin-top: 5em;
+        padding: 0;
+      
+        text-align: center;
+        background-color: rgba(245, 245, 245, 0.4);
+        border-radius: 2em;
+    }
+
+}
