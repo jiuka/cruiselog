@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+ 
+  root 'map#index'
+
   get 'ist_nala_auf_kreuzfahrt' => 'ist_nala_auf_kreuzfahrt#index'
   get 'ist_nala_auf_kreuzfahrt/:status' => 'ist_nala_auf_kreuzfahrt#index', as: 'ist_nala_auf_kreuzfahrt_status'
 
