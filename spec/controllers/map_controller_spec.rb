@@ -4,6 +4,7 @@ RSpec.describe MapController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
+      create(:cruise, start_at: Time.now+1.day, end_at: Time.now+10.days)
       get :index
       expect(response).to have_http_status(:success)
     end

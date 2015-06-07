@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150607082331) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cruises", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150607082331) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "cruises", ["ship_id"], name: "index_cruises_on_ship_id"
+  add_index "cruises", ["ship_id"], name: "index_cruises_on_ship_id", using: :btree
 
   create_table "ships", force: :cascade do |t|
     t.string   "name"
@@ -32,4 +35,5 @@ ActiveRecord::Schema.define(version: 20150607082331) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "cruises", "ships"
 end
