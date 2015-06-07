@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="controller-<%= params[:controller] %>">
 <head>
   <title>Cruiselog</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -9,6 +9,12 @@
 <body class="controller-<%= params[:controller] %>">
 
 <%= yield %>
+
+<div id="footer">
+  <div class="center">
+   <h1><%= content_for(:site_title) || 'CruiseLog' %></h1>
+  </div>
+</div>
 
 </body>
 </html>

@@ -10,6 +10,23 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require normalize-rails
  *= require_tree .
  *= require_self
  */
+
+div#footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 5em;
+  text-align: center;
+
+  .center {
+    background: #000;
+    height: 5em;
+    width: 50%;
+    display: inline-block;
+  }
+}
