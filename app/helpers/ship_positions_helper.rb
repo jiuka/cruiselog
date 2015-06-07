@@ -1,0 +1,2 @@
+module ShipPositionsHelper
+end

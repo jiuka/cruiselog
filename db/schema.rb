@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607082331) do
+ActiveRecord::Schema.define(version: 20150607115442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "cruises", force: :cascade do |t|
     t.string   "name"
@@ -27,6 +28,17 @@ ActiveRecord::Schema.define(version: 20150607082331) do
   end
 
   add_index "cruises", ["ship_id"], name: "index_cruises_on_ship_id", using: :btree
+
+  create_table "ship_positions", force: :cascade do |t|
+    t.integer   "mmsi"
+    t.geography "position",   limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.integer   "speed"
+    t.integer   "course"
+    t.integer   "status"
+    t.datetime  "timestamp"
+    t.datetime  "created_at",                                                          null: false
+    t.datetime  "updated_at",                                                          null: false
+  end
 
   create_table "ships", force: :cascade do |t|
     t.string   "name"
