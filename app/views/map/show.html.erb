@@ -1,0 +1,8 @@
+<% content_for(:site_title) do  %><%= @message %><% end %>
+<%= map(
+  :center => {
+    :latlng => [0, 0],
+    :zoom => 3
+  },
+  :markers => @markers
+) %>

@@ -1,6 +1,8 @@
 require 'date'
 
 class Cruise < ActiveRecord::Base
+
+  # Relations
   belongs_to :ship
 
   # Validations
@@ -13,6 +15,10 @@ class Cruise < ActiveRecord::Base
       errors.add(:start_at, "must be before end")
       errors.add(:end_at, "must be after start")
     end
+  end
+
+  def positions
+    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at)
   end
         
 end

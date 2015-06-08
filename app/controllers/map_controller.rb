@@ -9,10 +9,22 @@ class MapController < ApplicationController
       @zoom = 15
       @message = 'Wir sind leider nicht auf Kreuzfahrt'
     else
-      @lat = 47.1162
-      @lon = 9.1541
-      @zoom = 15
+      @lat = @cruise.ship.position.lat
+      @lon = @cruise.ship.position.lon
+      @zoom = 3
       @message = @cruise.name
     end
   end
+
+  def show
+    @cruise = Cruise.find(params[:id])
+    @message = @cruise.name
+
+    @markers = []
+
+    @cruise.positions.each do |p|
+      @markers << {:latlng => [p.position.lat, p.position.lon] }
+    end
+  end
+
 end
