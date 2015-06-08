@@ -22,8 +22,10 @@ class MapController < ApplicationController
 
     @markers = []
 
-    @cruise.positions.each do |p|
-      @markers << {:latlng => [p.position.lat, p.position.lon] }
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @cruise }
+      format.geojson { render json: @cruise.to_geojson }
     end
   end
 

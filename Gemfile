@@ -30,6 +30,9 @@ gem 'leaflet-rails'
 # FontAwesom
 gem 'font-awesome-sass', '~> 4.3.0'
 
+# GeoJson
+gem 'rgeo-geojson'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

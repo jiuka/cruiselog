@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :cruises, path: 'admin/cruises'
   get 'admin/ship_positions' => 'ship_positions#index', as: 'ship_positions'
 
-  get ':id' => 'map#show'
+  get ':id' => 'map#show', as: 'cruise_map'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -16,3 +16,18 @@
       html: '<div class="fa fa-ship fa-inverse mapicon"></div>'
       size: L.point 22, 22
       iconAnchor: L.point 11, 11
+
+ 
+$ ->
+  $.ajax
+    url: window.geoJsonUrl
+    dataType: "json"
+    error: (jqXHR, textStatus, errorThrown) ->
+      $('body').append "AJAX Error: #{textStatus}"
+    success: (data, textStatus, jqXHR) ->
+      l = L.geoJson data,
+        pointToLayer: (feature, latlng) ->
+          L.marker latlng,
+            icon: getShipIcon()
+      l.addTo map
+

@@ -18,7 +18,22 @@ class Cruise < ActiveRecord::Base
   end
 
   def positions
-    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at)
+    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).order(:timestamp)
   end
-        
+
+  def to_geojson
+    entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
+    factory = ::RGeo::Cartesian.preferred_factory()
+
+    features = []
+
+    features << entity_factory.feature(factory.line_string(positions.map(&:to_point)))
+
+    if start_at <= DateTime.now and end_at > DateTime.now
+       features << entity_factory.feature(positions.last.to_point, id, {icon: 'ship', name: ship.name})
+    end
+
+    RGeo::GeoJSON.encode(entity_factory.feature_collection(features))
+  end
+
 end

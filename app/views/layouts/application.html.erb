@@ -8,13 +8,9 @@
 </head>
 <body class="controller-<%= params[:controller] %>">
 
-<%= yield %>
+<h1 class="banner"><%= content_for(:site_title) || 'CruiseLog' %></h1>
 
-<div id="footer">
-  <div class="center">
-   <h1><%= content_for(:site_title) || 'CruiseLog' %></h1>
-  </div>
-</div>
+<%= yield %>
 
 </body>
 </html>

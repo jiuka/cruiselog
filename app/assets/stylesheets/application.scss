@@ -22,18 +22,56 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-div#footer {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  height: 5em;
-  text-align: center;
-
-  .center {
-    background: #000;
-    height: 5em;
-    width: 50%;
-    display: inline-block;
-  }
+#map {
+  z-index: -2;
 }
+
+.banner {
+  position: absolute;
+  left: 5em;
+  right: 5em;
+  top: 0em;
+  color: #801111;
+  text-shadow: #d65c5c 0 1px 0;
+  background: #d64b4b;
+  background: -webkit-gradient(linear, left top, left bottom, from(#d64b4b), to(#ab2c2c));
+  background: -webkit-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -moz-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -ms-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -o-linear-gradient(top, #d64b4b, #ab2c2c);
+  background-image: -ms-linear-gradient(top, #d64b4b 0%, #ab2c2c 100%);
+  display: block;
+  height: 2em;
+  line-height: 2em;
+  font-family: 'Helvetica Neue',Helvetica, sans-serif;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,.15) inset,
+                    0 6px 10px rgba(0,0,0,.15);
+}
+
+.banner::before,
+.banner::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -3.5em;
+  bottom: -1em;
+  display: block;
+  width: 2em;
+  height: 0px;
+  border: 1em solid #d64b4b;
+  border-right: 1em solid #801111;
+  border-left: 1.5em solid #d64b4b;
+  border-bottom-color: #d64b4b;
+  -moz-border-top-colors: #d64b4b #d14747 #cd4444 #c94141 #c43e3e #c03b3b;
+  -moz-border-bottom-colors: #ab2c2c #AF2F2F #B33232 #b73535 #bc3838 #c03b3b;
+  border-left-color: transparent;
+}
+
+.banner::after {
+  left: auto;
+  right: -3.5em;
+  border-left: 1em solid #801111;
+  border-right: 1.5em solid transparent;
+}
+
