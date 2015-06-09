@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607115442) do
+ActiveRecord::Schema.define(version: 20150609172346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+  enable_extension "postgis_topology"
 
   create_table "cruises", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150607115442) do
     t.datetime  "created_at",                                                          null: false
     t.datetime  "updated_at",                                                          null: false
   end
+
+  add_index "ship_positions", ["mmsi", "timestamp"], name: "index_ship_positions_on_mmsi_and_timestamp", unique: true, using: :btree
 
   create_table "ships", force: :cascade do |t|
     t.string   "name"
