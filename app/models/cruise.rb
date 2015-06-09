@@ -21,16 +21,26 @@ class Cruise < ActiveRecord::Base
     ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).order(:timestamp)
   end
 
+  def linstring
+    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).group(:mmsi).pluck('ST_MakeLine(position::geometry ORDER BY timestamp)').first
+  end
+
+  def boundary
+    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).group(:mmsi).pluck('ST_Envelope(ST_MakeLine(position::geometry ORDER BY timestamp))').first
+  end
+
   def to_geojson
     entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
     factory = ::RGeo::Cartesian.preferred_factory()
 
     features = []
 
-    features << entity_factory.feature(factory.line_string(positions.map(&:to_point)))
+    features << entity_factory.feature(linstring)
+
+    features << entity_factory.feature(boundary, :bbox, {bbox: true})
 
     if start_at <= DateTime.now and end_at > DateTime.now
-       features << entity_factory.feature(positions.last.to_point, id, {icon: 'ship', name: ship.name})
+       features << entity_factory.feature(positions.last.to_point, id, {icon: 'ship', name: ship.name, course: positions.last.course})
     end
 
     RGeo::GeoJSON.encode(entity_factory.feature_collection(features))
