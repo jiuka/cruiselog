@@ -1,11 +1,4 @@
 <% content_for(:site_title) do  %><%= @message %><% end %>
 <%= javascript_tag do %>window.geoJsonUrl = '<%= cruise_map_url format: :geojson %>';<% end %>
 
-
-<%= map(
-  :center => {
-    :latlng => [0, 0],
-    :zoom => 3
-  },
-  :markers => @markers
-) %>
+<div id="map">
