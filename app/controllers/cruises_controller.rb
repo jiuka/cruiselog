@@ -1,15 +1,25 @@
 class CruisesController < ApplicationController
   before_action :set_cruise, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, except: [:index, :show]
 
   # GET /cruises
   # GET /cruises.json
   def index
     @cruises = Cruise.all
+
+    respond_to do |format|
+      format.html
+      format.geojson { render geojson: @cruises }
+    end
   end
 
   # GET /cruises/1
   # GET /cruises/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.geojson { render geojson: @cruise }
+    end
   end
 
   # GET /cruises/new
@@ -64,7 +74,7 @@ class CruisesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cruise
-      @cruise = Cruise.find(params[:id])
+      @cruise = Cruise.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

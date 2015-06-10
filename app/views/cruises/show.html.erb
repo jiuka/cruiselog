@@ -1,29 +1,5 @@
+<% content_for(:site_title) do %><%= @cruise.name %><% end %>
 <p id="notice"><%= notice %></p>
+  
+<div id="map" data-geojson-url="<%= cruise_url @cruise, format: :geojson %>"></div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @cruise.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @cruise.description %>
-</p>
-
-<p>
-  <strong>Ship:</strong>
-  <%= @cruise.ship %>
-</p>
-
-<p>
-  <strong>Start at:</strong>
-  <%= @cruise.start_at %>
-</p>
-
-<p>
-  <strong>End at:</strong>
-  <%= @cruise.end_at %>
-</p>
-
-<%= link_to 'Edit', edit_cruise_path(@cruise) %> |
-<%= link_to 'Back', cruises_path %>

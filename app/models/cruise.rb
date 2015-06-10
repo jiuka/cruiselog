@@ -1,6 +1,8 @@
 require 'date'
 
 class Cruise < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   # Relations
   belongs_to :ship
@@ -22,16 +24,15 @@ class Cruise < ActiveRecord::Base
   end
 
   def linstring
-    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).group(:mmsi).pluck('ST_MakeLine(position::geometry ORDER BY timestamp)').first
+    ship.linstring(start_at, end_at)
   end
 
   def boundary
-    ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).group(:mmsi).pluck('ST_Envelope(ST_MakeLine(position::geometry ORDER BY timestamp))').first
+    ship.boundary(start_at, end_at)
   end
 
-  def to_geojson
+  def to_features
     entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
-    factory = ::RGeo::Cartesian.preferred_factory()
 
     features = []
 
@@ -43,7 +44,7 @@ class Cruise < ActiveRecord::Base
        features << entity_factory.feature(positions.last.to_point, id, {icon: 'ship', name: ship.name, course: positions.last.course})
     end
 
-    RGeo::GeoJSON.encode(entity_factory.feature_collection(features))
+    features
   end
 
 end
