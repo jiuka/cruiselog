@@ -33,6 +33,9 @@ gem 'font-awesome-sass', '~> 4.3.0'
 # GeoJson
 gem 'rgeo-geojson'
 
+# Clearance
+gem 'clearance'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
