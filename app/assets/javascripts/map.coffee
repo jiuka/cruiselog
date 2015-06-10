@@ -44,41 +44,41 @@ $ ->
       subdomains: ["a", "b", "c"],
     .addTo(map)
     L.terminator().addTo(map)
- 
-$ ->
+
+    loadGeoJson()
+    setInterval loadGeoJson, 60000
+
+@loadGeoJson = ->
   $.ajax
     url: $('#map').attr('data-geojson-url')
     dataType: "json"
-    error: (jqXHR, textStatus, errorThrown) ->
-      $('body').append "AJAX Error: #{textStatus}"
-    success: (data, textStatus, jqXHR) ->
-      window.gl = L.geoJson data,
-        pointToLayer: (feature, latlng) ->
-          console.log feature
-          marker = L.rotatedMarker latlng,
-            icon: getShipIcon()
-          marker.options.angle = feature.properties.course;
-          marker
-        filter: (feature, layer) ->
-          if feature.id == 'bbox'
-            c = feature.geometry.coordinates[0]
-            if !window.setbound
-              map.fitBounds [ [ c[0][1], c[0][0]], [c[2][1],c[2][0]]]
-            window.setbound = true
-          feature.id != 'bbox'
-      gl.addTo map
-
-@reloadData =->
-  $.ajax
-    url: window.geoJsonUrl
-    dataType: "json"
     ifModified: true
+    error: (jqXHR, textStatus, errorThrown) ->
+      console.log "AJAX Error: #{textStatus}"
+      console.log jqXHR
+      console.log errorThrown
     success: (data, textStatus, jqXHR) ->
-      if jqXHR.status == 200
-        console.log textStatus, jqXHR
-        gl.clearLayers();
-        gl.addData(data);
+      if jqXHR.status != 304
+        addGeoJson data
 
-$ ->
-  setInterval reloadData, 60000
+@getGeoJsonLayer =->
+  @geoJsonLayer ?= L.geoJson false,
+    pointToLayer: (feature, latlng) ->
+      marker = L.rotatedMarker latlng,
+        icon: getShipIcon()
+      marker.options.angle = feature.properties.course;
+      marker
+    filter: (feature, layer) ->
+      if feature.id == 'bbox'
+        c = feature.geometry.coordinates[0]
+        if !window.setbound
+          map.fitBounds [ [ c[0][1], c[0][0]], [c[2][1],c[2][0]]]
+        window.setbound = true
+      feature.id != 'bbox'
+  @geoJsonLayer.addTo map
+  @geoJsonLayer
+
+@addGeoJson = (data) ->
+  getGeoJsonLayer().clearLayers();
+  getGeoJsonLayer().addData(data);
 
