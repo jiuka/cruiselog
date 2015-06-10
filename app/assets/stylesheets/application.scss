@@ -22,6 +22,26 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+.content {
+  margin: 8em;
+}
+
+#clearance {
+  margin: 8em;
+  padding: 2em;
+  width: 400px;
+  color: #801111;
+  text-shadow: #d65c5c 0 1px 0;
+  background: #d64b4b;
+  background: -webkit-gradient(linear, left top, left bottom, from(#d64b4b), to(#ab2c2c));
+  background: -webkit-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -moz-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -ms-linear-gradient(top, #d64b4b, #ab2c2c);
+  background: -o-linear-gradient(top, #d64b4b, #ab2c2c);
+  background-image: -ms-linear-gradient(top, #d64b4b 0%, #ab2c2c 100%);
+  border-radius: 1em;
+}
+
 #map {
   z-index: -2;
 }

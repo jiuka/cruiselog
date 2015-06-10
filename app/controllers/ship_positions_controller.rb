@@ -1,4 +1,5 @@
 class ShipPositionsController < ApplicationController
+  before_action :require_login, except: [:index, :show]
 
   # GET /ship_positions
   # GET /ship_positions.json

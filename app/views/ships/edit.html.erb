@@ -1,6 +1,8 @@
-<h1>Editing Ship</h1>
+<% content_for(:site_title) do  %>Listing Ships<% end %>
 
-<%= render 'form' %>
+<div class="content">
+  <%= render 'form' %>
 
-<%= link_to 'Show', @ship %> |
-<%= link_to 'Back', ships_path %>
+  <%= link_to 'Show', @ship %> |
+  <%= link_to 'Back', ships_path %>
+</div>

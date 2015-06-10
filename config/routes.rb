@@ -18,9 +18,8 @@ Rails.application.routes.draw do
   get 'ist_nala_auf_kreuzfahrt' => 'ist_nala_auf_kreuzfahrt#index'
   get 'ist_nala_auf_kreuzfahrt/:status' => 'ist_nala_auf_kreuzfahrt#index', as: 'ist_nala_auf_kreuzfahrt_status'
 
-  resources :ships, path: 'admin/ships' do
-    get 'positions' => 'ship_positions#show', as: 'ship_position'
-  end
+  resources :ships
+
   resources :cruises, path: 'admin/cruises'
   get 'admin/ship_positions' => 'ship_positions#index', as: 'ship_positions'
 

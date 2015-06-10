@@ -47,7 +47,7 @@ $ ->
  
 $ ->
   $.ajax
-    url: window.geoJsonUrl
+    url: $('#map').attr('data-geojson-url')
     dataType: "json"
     error: (jqXHR, textStatus, errorThrown) ->
       $('body').append "AJAX Error: #{textStatus}"
