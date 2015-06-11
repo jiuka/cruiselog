@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   delete '/sign_out' => 'clearance/sessions#destroy', as: 'sign_out'
   get '/sign_up' => 'clearance/users#new', as: 'sign_up'
 
-  root 'map#index'
-
   get 'ist_nala_auf_kreuzfahrt' => 'ist_nala_auf_kreuzfahrt#index'
   get 'ist_nala_auf_kreuzfahrt/:status' => 'ist_nala_auf_kreuzfahrt#index', as: 'ist_nala_auf_kreuzfahrt_status'
+
+  get '/zuhause' => 'zuhause#index'
 
   resources :ships
   resources :cruises, path: '/'

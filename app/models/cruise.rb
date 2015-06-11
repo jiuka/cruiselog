@@ -12,6 +12,10 @@ class Cruise < ActiveRecord::Base
   validates :ship, presence: true
   validate :start_must_be_before_end
 
+  def self.current
+    self.where('start_at < ? and end_at > ?', DateTime.now, DateTime.now).first
+  end
+
   def start_must_be_before_end
     if end_at <= start_at
       errors.add(:start_at, "must be before end")

@@ -5,11 +5,14 @@ class CruisesController < ApplicationController
   # GET /cruises
   # GET /cruises.json
   def index
-    @cruises = Cruise.all
+    @cruise = Cruise.current
 
     respond_to do |format|
-      format.html
-      format.geojson { render geojson: @cruises }
+      if @cruise
+        format.html { redirect_to @cruise }
+      else
+        format.html { redirect_to zuhause_url }
+      end
     end
   end
 
