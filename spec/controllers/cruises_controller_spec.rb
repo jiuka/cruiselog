@@ -54,90 +54,136 @@ RSpec.describe CruisesController, type: :controller do
   end
 
   describe "GET #new" do
-    it "assigns a new cruise as @cruise" do
-      get :new, {}, valid_session
-      expect(assigns(:cruise)).to be_a_new(Cruise)
+    context 'as anonymous' do
+      it 'requires login' do
+        get :new, {}, valid_session
+        expect(subject).to deny_access
+      end
+    end
+
+    context 'as user' do
+      before { sign_in }
+
+      it "assigns a new cruise as @cruise" do
+        get :new, {}, valid_session
+        expect(assigns(:cruise)).to be_a_new(Cruise)
+      end
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested cruise as @cruise" do
-      cruise = Cruise.create! valid_attributes
-      get :edit, {:id => cruise.to_param}, valid_session
-      expect(assigns(:cruise)).to eq(cruise)
+    context 'as anonymous' do
+      it 'requires login' do
+        cruise = Cruise.create! valid_attributes
+        get :edit, {:id => cruise.to_param}, valid_session
+        expect(subject).to deny_access
+      end
+    end
+
+    context 'as user' do
+      before { sign_in } 
+
+      it "assigns the requested cruise as @cruise" do
+        cruise = Cruise.create! valid_attributes
+        get :edit, {:id => cruise.to_param}, valid_session
+        expect(assigns(:cruise)).to eq(cruise)
+      end
     end
   end
 
   describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Cruise" do
-        expect {
-          post :create, {:cruise => valid_attributes}, valid_session
-        }.to change(Cruise, :count).by(1)
-      end
-
-      it "assigns a newly created cruise as @cruise" do
+    context 'as anonymous' do
+      it 'requires login' do
         post :create, {:cruise => valid_attributes}, valid_session
-        expect(assigns(:cruise)).to be_a(Cruise)
-        expect(assigns(:cruise)).to be_persisted
-      end
-
-      it "redirects to the created cruise" do
-        post :create, {:cruise => valid_attributes}, valid_session
-        expect(response).to redirect_to(Cruise.last)
+        expect(subject).to deny_access
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved cruise as @cruise" do
-        post :create, {:cruise => invalid_attributes}, valid_session
-        expect(assigns(:cruise)).to be_a_new(Cruise)
+    context 'as user' do
+      before { sign_in } 
+
+      context "with valid params" do
+        it "creates a new Cruise" do
+          expect {
+            post :create, {:cruise => valid_attributes}, valid_session
+          }.to change(Cruise, :count).by(1)
+        end
+
+        it "assigns a newly created cruise as @cruise" do
+          post :create, {:cruise => valid_attributes}, valid_session
+          expect(assigns(:cruise)).to be_a(Cruise)
+          expect(assigns(:cruise)).to be_persisted
+        end
+
+        it "redirects to the created cruise" do
+          post :create, {:cruise => valid_attributes}, valid_session
+          expect(response).to redirect_to(Cruise.last)
+        end
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:cruise => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      context "with invalid params" do
+        it "assigns a newly created but unsaved cruise as @cruise" do
+          post :create, {:cruise => invalid_attributes}, valid_session
+          expect(assigns(:cruise)).to be_a_new(Cruise)
+        end
+
+        it "re-renders the 'new' template" do
+          post :create, {:cruise => invalid_attributes}, valid_session
+          expect(response).to render_template("new")
+        end
       end
     end
   end
 
   describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        { description: 'TESTDESC' }
-      }
-
-      it "updates the requested cruise" do
+    context 'as anonymous' do
+      it 'requires login' do
         cruise = Cruise.create! valid_attributes
-        put :update, {:id => cruise.to_param, :cruise => new_attributes}, valid_session
-        cruise.reload
-        expect(cruise.description).to eq('TESTDESC')
-      end
-
-      it "assigns the requested cruise as @cruise" do
-        cruise = Cruise.create! valid_attributes
-        put :update, {:id => cruise.to_param, :cruise => valid_attributes}, valid_session
-        expect(assigns(:cruise)).to eq(cruise)
-      end
-
-      it "redirects to the cruise" do
-        cruise = Cruise.create! valid_attributes
-        put :update, {:id => cruise.to_param, :cruise => valid_attributes}, valid_session
-        expect(response).to redirect_to(cruise)
+        put :update, {:id => cruise.to_param, :cruise => {}}, valid_session
+        expect(subject).to deny_access
       end
     end
 
-    context "with invalid params" do
-      it "assigns the cruise as @cruise" do
-        cruise = Cruise.create! valid_attributes
-        put :update, {:id => cruise.to_param, :cruise => invalid_attributes}, valid_session
-        expect(assigns(:cruise)).to eq(cruise)
+    context 'as user' do
+      before { sign_in }
+
+      context "with valid params" do
+        let(:new_attributes) {
+          { description: 'TESTDESC' }
+        }
+
+        it "updates the requested cruise" do
+          cruise = Cruise.create! valid_attributes
+          put :update, {:id => cruise.to_param, :cruise => new_attributes}, valid_session
+          cruise.reload
+          expect(cruise.description).to eq('TESTDESC')
+        end
+
+        it "assigns the requested cruise as @cruise" do
+          cruise = Cruise.create! valid_attributes
+          put :update, {:id => cruise.to_param, :cruise => valid_attributes}, valid_session
+          expect(assigns(:cruise)).to eq(cruise)
+        end
+
+        it "redirects to the cruise" do
+          cruise = Cruise.create! valid_attributes
+          put :update, {:id => cruise.to_param, :cruise => valid_attributes}, valid_session
+          expect(response).to redirect_to(cruise)
+        end
       end
 
-      it "re-renders the 'edit' template" do
-        cruise = Cruise.create! valid_attributes
-        put :update, {:id => cruise.to_param, :cruise => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+      context "with invalid params" do
+        it "assigns the cruise as @cruise" do
+          cruise = Cruise.create! valid_attributes
+          put :update, {:id => cruise.to_param, :cruise => invalid_attributes}, valid_session
+          expect(assigns(:cruise)).to eq(cruise)
+        end
+
+        it "re-renders the 'edit' template" do
+          cruise = Cruise.create! valid_attributes
+          put :update, {:id => cruise.to_param, :cruise => invalid_attributes}, valid_session
+          expect(response).to render_template("edit")
+        end
       end
     end
   end
