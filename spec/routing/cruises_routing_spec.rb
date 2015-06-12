@@ -4,7 +4,7 @@ RSpec.describe CruisesController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
-      expect(:get => "").to route_to("cruises#index")
+      expect(:get => "/").to route_to("cruises#index")
     end
 
     it "routes to #new" do
@@ -20,7 +20,7 @@ RSpec.describe CruisesController, type: :routing do
     end
 
     it "routes to #create" do
-      expect(:post => "").to route_to("cruises#create")
+      expect(:post => "/").to route_to("cruises#create")
     end
 
     it "routes to #update" do

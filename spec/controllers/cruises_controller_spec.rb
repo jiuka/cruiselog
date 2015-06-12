@@ -189,17 +189,29 @@ RSpec.describe CruisesController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested cruise" do
-      cruise = Cruise.create! valid_attributes
-      expect {
+    context 'as anonymous' do
+      it 'requires login' do
+        cruise = Cruise.create! valid_attributes
         delete :destroy, {:id => cruise.to_param}, valid_session
-      }.to change(Cruise, :count).by(-1)
+        expect(subject).to deny_access
+      end
     end
 
-    it "redirects to the cruises list" do
-      cruise = Cruise.create! valid_attributes
-      delete :destroy, {:id => cruise.to_param}, valid_session
-      expect(response).to redirect_to(cruises_url)
+    context 'as user' do
+      before { sign_in }
+
+      it "destroys the requested cruise" do
+        cruise = Cruise.create! valid_attributes
+        expect {
+          delete :destroy, {:id => cruise.to_param}, valid_session
+        }.to change(Cruise, :count).by(-1)
+      end
+  
+      it "redirects to the cruises list" do
+        cruise = Cruise.create! valid_attributes
+        delete :destroy, {:id => cruise.to_param}, valid_session
+        expect(response).to redirect_to(cruises_url)
+      end
     end
   end
 
