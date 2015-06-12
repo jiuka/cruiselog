@@ -38,10 +38,15 @@ RSpec.describe CruisesController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all cruises as @cruises" do
-      cruise = Cruise.create! valid_attributes
+    it "redirects to current cruise" do
+      cruise = create(:cruise, start_at: DateTime.now-1.day, end_at: DateTime.now+7.days)
       get :index, {}, valid_session
-      expect(assigns(:cruises)).to eq([cruise])
+      expect(subject).to redirect_to action: 'show', id: cruise.friendly_id
+    end
+    it "redirects to Home" do
+      cruise = create(:cruise, start_at: DateTime.now+1.day, end_at: DateTime.now+7.days)
+      get :index, {}, valid_session
+      expect(subject).to redirect_to controller: 'zuhause', action: 'index'
     end
   end
 
