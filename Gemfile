@@ -49,6 +49,7 @@ gem 'friendly_id', '~> 5.1.0'
 # gem 'capistrano-rails', group: :development
 
 gem 'dotenv-rails'
+gem 'whenever', :require => false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -67,5 +68,8 @@ group :development, :test do
   # Capistrano
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
+
+  # Seed Dumper
+  gem 'seed_dump'
 end
 
