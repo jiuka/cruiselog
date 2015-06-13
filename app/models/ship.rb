@@ -23,7 +23,10 @@ class Ship < ActiveRecord::Base
  
   def to_features
     entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
-    features = [entity_factory.feature(linstring)]
+    features = []
+    if linstring
+      features << entity_factory.feature(linstring)
+    end
     if position
       features << entity_factory.feature(position.position, id, {icon: 'ship', name: name, course: position.course})
     end

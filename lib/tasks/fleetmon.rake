@@ -29,7 +29,7 @@ namespace :fleetmon do
       begin
         ShipPosition.create!([{
           mmsi: vessel['mmsinumber'],
-          position: "POINT(#{vessel['latitude']} #{vessel['longitude']})",
+          position: "POINT(#{vessel['longitude']} #{vessel['latitude']})",
           speed: vessel['speed'],
           course: vessel['heading'].to_f,
           status: nil,
