@@ -7,6 +7,10 @@ if @environment == 'staging'
   every 3.minutes do
     rake "marine_traffic:import_vessels"
   end
+
+  every 10.minutes do
+    rake "fleetmon:import"
+  end
 end
 
 # Learn more: http://github.com/javan/whenever
