@@ -23,11 +23,7 @@ L.RotatedMarker = L.Marker.extend
   _setPos: (pos) ->
     L.Marker.prototype._setPos.call(this, pos);
     if (L.DomUtil.TRANSFORM)
-      this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
-#    else if (L.Browser.ie)
-#      rad = this.options.angle * L.LatLng.DEG_TO_RAD, costheta = Math.cos(rad), sintheta = Math.sin(rad);
-#      this._icon.style.filter += ' progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\', M11=' +
-#              costheta + ', M12=' + (-sintheta) + ', M21=' + sintheta + ', M22=' + costheta + ')';
+      this._icon.firstChild.style[L.DomUtil.TRANSFORM] = 'rotate(' + this.options.angle + 'deg)';
 
 L.rotatedMarker = (pos, options) ->
   new L.RotatedMarker(pos, options)
