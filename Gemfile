@@ -48,6 +48,8 @@ gem 'friendly_id', '~> 5.1.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'dotenv-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -61,5 +63,9 @@ group :development, :test do
   # Add RSpec Tests
   gem 'rspec-rails', '~> 3.0'
   gem "factory_girl_rails", "~> 4.0"
+
+  # Capistrano
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
 end
 
