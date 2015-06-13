@@ -1,5 +1,13 @@
 class IstNalaAufKreuzfahrtController < ApplicationController
 
+  def default_url_options
+    if Rails.env.production?
+      { domain: 'dev.istnalaaufkreuzfahrt.ch' , subdomain: nil}
+    else
+      { host: "#{Rails.env}.istnalaaufkreuzfahrt.ch" }
+    end
+  end
+
   MESSAGES = {
     leider_noch_nicht: 'Leider noch nicht, erst in:',
     ja: 'Ja, seit:',
