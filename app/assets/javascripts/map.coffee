@@ -63,6 +63,7 @@ $ ->
       marker = L.rotatedMarker latlng,
         icon: getShipIcon()
       marker.options.angle = feature.properties.course;
+      marker.bindPopup feature.properties.name
       marker
     filter: (feature, layer) ->
       if feature.id == 'bbox'
