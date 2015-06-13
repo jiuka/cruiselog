@@ -1,5 +1,8 @@
-<h1>New Cruise</h1>
+<% content_for(:site_title) do  %>New Cruise<% end %>
+<div class="content">
 
 <%= render 'form' %>
 
 <%= link_to 'Back', cruises_path %>
+
+</div>

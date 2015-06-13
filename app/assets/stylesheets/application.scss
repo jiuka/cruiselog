@@ -23,7 +23,15 @@
 @import "font-awesome";
 
 .content {
-  margin: 8em;
+  position: absolute;
+  top: 0px;
+  right: 12em;
+  left: 12em;
+  bottom: 0em;
+  padding: 2em;
+  padding-top: 10em;
+  background: #ddd;
+  z-index: -1;
 }
 
 #clearance {

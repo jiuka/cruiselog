@@ -1,6 +1,9 @@
-<h1>Editing Cruise</h1>
+<% content_for(:site_title) do  %>Edit <%= @cruise.name %><% end %>
+<div class="content">
 
 <%= render 'form' %>
 
 <%= link_to 'Show', @cruise %> |
 <%= link_to 'Back', cruises_path %>
+
+</div>
