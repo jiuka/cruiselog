@@ -20,7 +20,7 @@ class ShipsController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.geojson { render geojson: @ship }
+      format.geojson { render geojson: @ship, bbox: @ship.boundary }
     end
   end
 

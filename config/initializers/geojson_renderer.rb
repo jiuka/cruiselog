@@ -16,7 +16,7 @@ ActionController::Renderers.add :geojson do |obj, options|
   end
 
   if features.length > 0
-    RGeo::GeoJSON.encode(factory.feature_collection(features.flatten)).to_json
+    RGeo::GeoJSON.encode(factory.feature_collection(features.flatten.compact)).to_json
   else
     obj.class.to_s
   end
