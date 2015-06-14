@@ -39,15 +39,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
-namespace :deploy do
+set :passenger_restart_with_touch, true
 
-  after :restart, :restart do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      within release_path do
-        execute :touch, 'tmp/restart.txt'
-      end
-    end
-  end
+namespace :deploy do
 
 end
