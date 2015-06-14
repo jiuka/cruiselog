@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610183706) do
+ActiveRecord::Schema.define(version: 20150614090754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150610183706) do
     t.datetime  "timestamp"
     t.datetime  "created_at",                                                          null: false
     t.datetime  "updated_at",                                                          null: false
+    t.string    "source"
   end
 
   add_index "ship_positions", ["mmsi", "timestamp"], name: "index_ship_positions_on_mmsi_and_timestamp", unique: true, using: :btree

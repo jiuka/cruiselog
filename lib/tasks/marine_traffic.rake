@@ -16,14 +16,15 @@ namespace :marine_traffic do
 
     points.each do |point|
       begin
-        pos = ShipPosition.new
-        pos.mmsi = point[0]
-        pos.position = "POINT(#{point[2]} #{point[1]})"
-        pos.speed = point[3]
-        pos.course = point[4]
-        pos.status = point[5]
-        pos.timestamp = point[6]
-        pos.save
+        ShipPosition.create!([{
+          mmsi: point[0],
+          position: "POINT(#{point[2]} #{point[1]})",
+          speed: point[3],
+          course: point[4],
+          status: point[5],
+          timestamp: point[6],
+          source: 'marinetraffic',
+        }])
       rescue Exception => e
         puts e.message  
       end

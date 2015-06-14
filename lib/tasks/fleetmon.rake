@@ -34,6 +34,7 @@ namespace :fleetmon do
           course: vessel['heading'].to_f,
           status: nil,
           timestamp: vessel['positionreceived'],
+          source: 'fleetmon',
         }])
       rescue
         puts " failed"
