@@ -48,6 +48,10 @@ gem 'friendly_id', '~> 5.1.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# I18N
+gem 'rails-i18n'
+gem 'http_accept_language'
+
 gem 'dotenv-rails'
 gem 'whenever', :require => false
 
@@ -72,5 +76,8 @@ group :development, :test do
 
   # Seed Dumper
   gem 'seed_dump'
+
+  # I18n Tasks
+  gem 'i18n-tasks'
 end
 

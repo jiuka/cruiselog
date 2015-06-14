@@ -1,0 +1,19 @@
+---
+de:
+  hello: Hello world
+  ist_nala_auf_kreuzfahrt:
+    index:
+      days: Tagen
+      hours: Stunden
+      ist_nala_auf_kreuzfahrt: Ist Nala auf Kreuzfahrt?
+      ja: 'Ja, seit:'
+      leider_nicht_mehr: 'Leider nicht mehr seit:'
+      leider_noch_nicht: 'Leider noch nicht, erst in:'
+      minutes: Minuten
+      nicht_mehr_lange: 'Nur noch:'
+      seconds: Sekunden
+      status:
+        ja: ja
+        leider_nicht_mehr: leider_nicht_mehr
+        leider_noch_nicht: leider_noch_nicht
+        nicht_mehr_lange: nicht_mehr_lange
