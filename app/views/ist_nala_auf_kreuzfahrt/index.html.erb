@@ -1,7 +1,7 @@
 <% content_for(:site_title) { t('.ist_nala_auf_kreuzfahrt') } %>
 <div class="display">
   <h1 id="title"><%= @message %></h1>
-  <div id="DateCountdown" data-date="<%= @date.inspect %>" style="width: 100%px; padding: 0px; box-sizing: border-box;"></div>
+  <div id="DateCountdown" data-date="<%= @date.httpdate %>" style="width: 100%px; padding: 0px; box-sizing: border-box;"></div>
 </div>
 
 <script>
