@@ -7,12 +7,17 @@ namespace :marine_traffic do
 
   desc 'Import from exportvessels API'
   task :import_vessels => :environment do
-    
-    uri = URI("http://services.marinetraffic.com/api/exportvessels/#{ENV['MARINE_TRAFFIC_EXPORTVESSEL_APIKEY']}/timespan:30/protocol:json")
 
-    data = Net::HTTP.get(uri)
+    begin
+      uri = URI("http://services.marinetraffic.com/api/exportvessels/#{ENV['MARINE_TRAFFIC_EXPORTVESSEL_APIKEY']}/timespan:30/protocol:json")
 
-    points = JSON.parse data
+      data = Net::HTTP.get(uri)
+
+      points = JSON.parse data
+    rescue Exception => e
+      Rails.logger.error e.message
+      Rails.logger.error e.backtrace
+    end
 
     points.each do |point|
       begin
@@ -26,7 +31,8 @@ namespace :marine_traffic do
           source: 'marinetraffic',
         }])
       rescue Exception => e
-        puts e.message  
+        Rails.logger.error e.message
+        e.backtrace.each { |l| Rails.logger.error l }
       end
     end
   end

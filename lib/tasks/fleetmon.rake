@@ -9,20 +9,17 @@ namespace :fleetmon do
       return
     end
 
-    # Prepare Logger
-    pos_logger ||= Logger.new("#{Rails.root}/log/import_fleetmon.log")
-
     fm_host = ENV['FLEETMON_HOST'] || 'www.fleetmon.com'
     fm_path = "/api/p/personal-v1/myfleet/?username=#{ENV['FLEETMON_USER']}&api_key=#{ENV['FLEETMON_KEY']}&format=json"
     response = Net::HTTP.get_response(fm_host,fm_path)
     data = JSON.parse response.body
 
     data['objects'].map { |o| o['vessel'] }.compact.each do |vessel|
-      print "Import #{vessel['name']} (#{vessel['mmsinumber']})"
+      Rails.logger.info "Import #{vessel['name']} (#{vessel['mmsinumber']})"
 
       ship = Ship.find_by(:mmsi => vessel['mmsinumber'].to_s)
       unless ship
-        puts " not found"
+        Rails.logger.info "Ship not found"
         next
       end
 
@@ -36,10 +33,11 @@ namespace :fleetmon do
           timestamp: vessel['positionreceived'],
           source: 'fleetmon',
         }])
-      rescue
-        puts " failed"
-      else
-        puts " inserted"
+      rescue ActiveRecord::RecordNotUnique => e
+        Rails.logger.info e.message
+      rescue Exception => e
+        Rails.logger.error e.message
+        e.backtrace.each { |l| Rails.logger.error l }
       end
 
     end
