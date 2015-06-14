@@ -3,7 +3,7 @@
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
 
-if @environment == 'staging'
+if @environment == 'production'
   every 3.minutes do
     rake "marine_traffic:import_vessels"
   end
