@@ -21,7 +21,7 @@ class CruisesController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.geojson { render geojson: @cruise }
+      format.geojson { render geojson: @cruise, bbox: @cruise.boundary }
     end
   end
 

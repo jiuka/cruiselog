@@ -65,11 +65,15 @@ $ ->
       marker.options.angle = feature.properties.course;
       marker.bindPopup feature.properties.name
       marker
-    filter: (feature, layer) ->
+    filter: (feature) ->
       if feature.id == 'bbox'
-        c = feature.geometry.coordinates[0]
         if !window.setbound
-          map.fitBounds [ [ c[0][1], c[0][0]], [c[2][1],c[2][0]]]
+          if feature.geometry.type == 'Point'
+            c = L.GeoJSON.coordsToLatLng feature.geometry.coordinates
+            map.setView c
+          else
+            c = L.GeoJSON.coordsToLatLngs feature.geometry.coordinates[0]
+            map.fitBounds c
         window.setbound = true
       feature.id != 'bbox'
   @geoJsonLayer.addTo map

@@ -7,9 +7,11 @@ class ShipsController < ApplicationController
   def index
     @ships = Ship.all
 
+    @bbox = RGeo::Cartesian.factory.multi_point(@ships.map(&:position).compact.map(&:position)).envelope
+
     respond_to do |format|
       format.html
-      format.geojson { render geojson: @ships }
+      format.geojson { render geojson: @ships, bbox: @bbox }
     end
   end
 

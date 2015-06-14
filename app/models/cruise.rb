@@ -42,8 +42,6 @@ class Cruise < ActiveRecord::Base
 
     features << entity_factory.feature(linstring)
 
-    features << entity_factory.feature(boundary, :bbox, {bbox: true})
-
     if start_at <= DateTime.now and end_at > DateTime.now
        features << entity_factory.feature(positions.last.to_point, id, {icon: 'ship', name: ship.name, course: positions.last.course})
     end
