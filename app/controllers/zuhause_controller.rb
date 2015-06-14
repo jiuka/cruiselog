@@ -7,7 +7,7 @@ class ZuhauseController < ApplicationController
         features = entity_factory.feature(
           RGeo::Geographic.spherical_factory(srid: 4326).point(9.1520, 47.1165),
           'home', {icon: 'home', course: 0})
-        render geojson: features
+        render geojson: features, bbox: RGeo::Geographic.spherical_factory(srid: 4326).point(9.1520, 47.1165)
       end
     end
   end

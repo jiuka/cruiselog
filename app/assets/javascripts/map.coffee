@@ -17,6 +17,13 @@
       size: L.point 22, 22
       iconAnchor: L.point 11, 11
 
+@getIconFor = (name) ->
+  console.log "@getIconFor", name
+  if name == 'home'
+    getHomeIcon()
+  else
+    getShipIcon()
+
 L.RotatedMarker = L.Marker.extend
   options:
     angle: 0
@@ -61,7 +68,7 @@ $ ->
   @geoJsonLayer ?= L.geoJson false,
     pointToLayer: (feature, latlng) ->
       marker = L.rotatedMarker latlng,
-        icon: getShipIcon()
+        icon: getIconFor feature.properties.icon
       marker.options.angle = feature.properties.course;
       marker.bindPopup feature.properties.name
       marker
@@ -70,7 +77,7 @@ $ ->
         if !window.setbound
           if feature.geometry.type == 'Point'
             c = L.GeoJSON.coordsToLatLng feature.geometry.coordinates
-            map.setView c
+            map.panTo c
           else
             c = L.GeoJSON.coordsToLatLngs feature.geometry.coordinates[0]
             map.fitBounds c
