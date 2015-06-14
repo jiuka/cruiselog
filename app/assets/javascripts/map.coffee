@@ -18,7 +18,6 @@
       iconAnchor: L.point 11, 11
 
 @getIconFor = (name) ->
-  console.log "@getIconFor", name
   if name == 'home'
     getHomeIcon()
   else
@@ -41,7 +40,7 @@ $ ->
 
     map.setView([0, 0], 3)
 
-    L.tileLayer 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+    L.tileLayer '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: '<a href="//openstreetmap.ch/">OpenStreetMap.org</a> | <a href="http://www.marinetraffic.com/">MarineTraffic</a>',
       maxZoom: 18,
       subdomains: ["a", "b", "c"],
