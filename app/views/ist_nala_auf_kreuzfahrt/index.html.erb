@@ -17,8 +17,25 @@ kf_counter = $("#DateCountdown").TimeCircles({
       Seconds: { color: "#C0C8CF", text: "<%= t('.seconds') %>" }
   }
   }).addListener(function(unit,value,total) {
-    if (total % 60 == 0) {
-      console.log(total);
+    if (unit == 'Minutes') {
+      $.ajax({
+        url: window.location.href,
+        dataType: "json",
+        success: function (data, textStatus, jqXHR) {
+          if (window.location.href != data.url) {
+            window.location = data.url;
+          }
+          if ($("#DateCountdown").attr('data-date') != data.date) {
+            $("#DateCountdown").attr('data-date', data.date);
+            var current = Date.now()+(kf_counter.getTime()*1000);
+            var diff = Date.parse($("#DateCountdown").attr('data-date'))-current;
+            kf_counter.addTime(diff/1000);
+          }
+          if ($("#title").text() != data.message) {
+            $("#title").text(data.message);
+          }
+        }
+      });
     }
   }, type="all");
 
