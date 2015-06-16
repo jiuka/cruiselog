@@ -45,10 +45,14 @@ $ ->
       maxZoom: 18,
       subdomains: ["a", "b", "c"],
     .addTo(map)
-    L.terminator().addTo(map)
+    window.terminator = L.terminator().addTo(map)
 
     loadGeoJson()
     setInterval loadGeoJson, 60000
+    setInterval updateTerminator, 600000
+
+@updateTerminator = ->
+  terminator.setTime(Date.now());
 
 @loadGeoJson = ->
   $.ajax
