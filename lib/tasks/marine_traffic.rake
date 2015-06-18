@@ -24,7 +24,7 @@ namespace :marine_traffic do
         ShipPosition.create!([{
           mmsi: point[0],
           position: "POINT(#{point[2]} #{point[1]})",
-          speed: point[3],
+          speed: point[3]/10,
           course: point[4],
           status: point[5],
           timestamp: point[6],

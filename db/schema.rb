@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614090754) do
+ActiveRecord::Schema.define(version: 20150618031423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150614090754) do
   create_table "ship_positions", force: :cascade do |t|
     t.integer   "mmsi"
     t.geography "position",   limit: {:srid=>4326, :type=>"point", :geographic=>true}
-    t.integer   "speed"
+    t.float     "speed"
     t.integer   "course"
     t.integer   "status"
     t.datetime  "timestamp"
