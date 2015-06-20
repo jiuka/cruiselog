@@ -36,9 +36,16 @@ L.rotatedMarker = (pos, options) ->
 
 $ ->
   if $('#map').length > 0
-    window.map = L.map 'map'
+    window.map = L.map 'map',
+      center: [ 0, 0 ],
+      zoom: 6,
+      zoomControl: false,
+      attributionControl: false
 
-    map.setView([0, 0], 3)
+    map.on 'resize', (e) ->
+      map.options.minZoom = map.getBoundsZoom [[-90,-180],[90,180]], true
+
+    map.options.minZoom = map.getBoundsZoom [[-90,-180],[90,180]], true
 
     L.tileLayer '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: '<a href="//openstreetmap.ch/">OpenStreetMap.org</a> | <a href="http://www.marinetraffic.com/">MarineTraffic</a>',
@@ -83,7 +90,8 @@ $ ->
             map.panTo c
           else
             c = L.GeoJSON.coordsToLatLngs feature.geometry.coordinates[0]
-            map.fitBounds c
+            map.fitBounds c,
+              paddingTopLeft: [0, $('.banner').offset().top+$('.banner').height()-$('#map').offset().top]
         window.setbound = true
       feature.id != 'bbox'
   @geoJsonLayer.addTo map
