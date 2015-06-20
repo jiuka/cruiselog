@@ -22,7 +22,7 @@ namespace :marine_traffic do
     rows.each do |row|
       begin
         ShipPosition.create!([{
-          mmsi: row.attr('MMSI')
+          mmsi: row.attr('MMSI'),
           position: "POINT(#{row.attr('LON')} #{row.attr('LAT')})",
           speed: row.attr('SPEED').to_f/10,
           course: row.attr('COURSE'),
