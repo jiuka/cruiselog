@@ -9,25 +9,25 @@ namespace :marine_traffic do
   task :import_vessels => :environment do
 
     begin
-      uri = URI("http://services.marinetraffic.com/api/exportvessels/#{ENV['MARINE_TRAFFIC_EXPORTVESSEL_APIKEY']}/timespan:30/protocol:json")
+      uri = URI("http://services.marinetraffic.com/api/exportvessels/#{ENV['MARINE_TRAFFIC_EXPORTVESSEL_APIKEY']}/timespan:30/protocol:xml")
 
       data = Net::HTTP.get(uri)
 
-      points = JSON.parse data
+      rows = Nokogiri::XML(data).xpath("//row")
     rescue Exception => e
       Rails.logger.error e.message
       Rails.logger.error e.backtrace
     end
 
-    points.each do |point|
+    rows.each do |row|
       begin
         ShipPosition.create!([{
-          mmsi: point[0],
-          position: "POINT(#{point[2]} #{point[1]})",
-          speed: point[3].to_f/10,
-          course: point[4],
-          status: point[5],
-          timestamp: point[6],
+          mmsi: row.attr('MMSI')
+          position: "POINT(#{row.attr('LON')} #{row.attr('LAT')})",
+          speed: row.attr('SPEED').to_f/10,
+          course: row.attr('COURSE'),
+          status: row.attr('STATUS'),
+          timestamp: row.attr('TIMESTAMP'),
           source: 'marinetraffic',
         }])
       rescue Exception => e
