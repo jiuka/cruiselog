@@ -7,3 +7,7 @@ div.mapicon {
   background-color: #000;
   padding: 4px;
 }
+
+img.leaflet-tile {
+  filter: grayscale(100%);
+}
