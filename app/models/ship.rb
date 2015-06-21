@@ -28,7 +28,13 @@ class Ship < ActiveRecord::Base
       features << entity_factory.feature(linstring)
     end
     if position
-      features << entity_factory.feature(position.position, id, {icon: 'ship', name: name, course: position.course})
+      features << entity_factory.feature(position.position, id, {
+        icon: 'ship',
+        name: name,
+        course: position.course,
+        length: length,
+        width: width,
+      })
     end
     features
   end
