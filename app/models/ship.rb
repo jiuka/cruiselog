@@ -9,6 +9,22 @@ class Ship < ActiveRecord::Base
   validates :name, presence: true
   validates :mmsi, numericality: true, presence: true
 
+  # Paper Clips
+  has_attached_file :icon
+  has_attached_file :shape
+  validates_attachment_content_type :icon, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :shape, :content_type => /\Aimage\/.*\Z/
+  before_save :extract_dimensions
+  serialize :icon_dimensions
+
+  def extract_dimensions
+    tempfile = icon.queued_for_write[:original]
+    unless tempfile.nil?
+      geometry = Paperclip::Geometry.from_file(tempfile)
+      self.icon_dimensions = [geometry.width.to_i, geometry.height.to_i]
+    end
+  end
+
   def position
     positions.order('timestamp').last
   end
@@ -34,6 +50,10 @@ class Ship < ActiveRecord::Base
         course: position.course,
         length: length,
         width: width,
+        shapeUrl: shape.url,
+        iconUrl: icon.url,
+        iconWidth: icon_dimensions && icon_dimensions[0] || 64,
+        iconHeight: icon_dimensions && icon_dimensions[1] || 10,
       })
     end
     features
