@@ -51,8 +51,6 @@ L.ShipMarker = L.Marker.extend
     L.Marker.prototype._initIcon.call(this)
   _setPos: (pos) ->
     if map.getZoom() < 15
-      console.log this.options.icon.options.iconSize
-      console.log this.options.iconWidth
       if this.options.icon.options.iconSize[0] != this.options.iconWidth
         this._setupIcon()
         this._initIcon()
@@ -72,13 +70,11 @@ L.ShipMarker = L.Marker.extend
       this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
 
   _setupIcon: () ->
-    console.log "_setupIcon:"
     this.options.realIconHeight = this.options.iconHeight
     this.options.realIconWidth = this.options.iconWidth
     this.options.realIconUrl = this.options.iconUrl
 
   _setupShape: (length) ->
-    console.log "_setupShape:", length
     this.options.realIconHeight = length
     this.options.realIconWidth = length / this.options.length * this.options.width
     this.options.realIconUrl = this.options.shapeUrl
