@@ -47,7 +47,7 @@ class Ship < ActiveRecord::Base
       features << entity_factory.feature(position.position, id, {
         icon: 'ship',
         name: name,
-        course: position.course,
+        heading: position.heading || position.course || 0,
         length: length,
         width: width,
         shapeUrl: shape.url,

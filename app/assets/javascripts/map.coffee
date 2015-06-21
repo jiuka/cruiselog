@@ -143,12 +143,11 @@ $ ->
         return marker
       if feature.properties.icon == 'ship'
         marker = L.shipMarker latlng,
-          angle: feature.properties.course,
+          angle: feature.properties.heading,
           iconUrl: feature.properties.iconUrl,
           iconWidth: feature.properties.iconWidth,
           iconHeight: feature.properties.iconHeight,
           shapeUrl: feature.properties.shapeUrl
-        marker.options.angle = feature.properties.course;
         marker.bindPopup feature.properties.name
         return marker
     filter: (feature) ->

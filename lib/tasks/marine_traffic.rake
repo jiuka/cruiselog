@@ -25,6 +25,7 @@ namespace :marine_traffic do
           mmsi: row.attr('MMSI'),
           position: "POINT(#{row.attr('LON')} #{row.attr('LAT')})",
           speed: row.attr('SPEED').to_f/10,
+          heading: row.attr('HEADING'),
           course: row.attr('COURSE'),
           status: row.attr('STATUS'),
           timestamp: row.attr('TIMESTAMP'),
