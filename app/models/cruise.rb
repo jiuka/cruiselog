@@ -40,7 +40,9 @@ class Cruise < ActiveRecord::Base
 
     features = []
 
-    features << entity_factory.feature(linstring)
+    linstring.each do |line|
+      features << entity_factory.feature(line)
+    end
 
     if start_at <= DateTime.now and end_at > DateTime.now
        features << entity_factory.feature(positions.last.to_point, id, {icon: 'ship', name: ship.name, course: positions.last.course})

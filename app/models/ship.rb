@@ -30,7 +30,7 @@ class Ship < ActiveRecord::Base
   end
 
   def linstring(from=DateTime.now-1.week, to=DateTime.now)
-    positions.where('timestamp > ? and timestamp < ?', from, to).group(:mmsi).pluck('ST_MakeLine(position::geometry ORDER BY timestamp)').first
+    positions.where('timestamp > ? and timestamp < ?', from, to).group('ST_X(position::geometry) > 0').pluck('ST_MakeLine(position::geometry ORDER BY timestamp)::geography')
   end
 
   def boundary(from=DateTime.now-1.week, to=DateTime.now)
