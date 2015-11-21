@@ -27,8 +27,8 @@ class Cruise < ActiveRecord::Base
     ship.positions.where('timestamp > ? and timestamp < ?', start_at, end_at).order(:timestamp)
   end
 
-  def linstring
-    ship.linstring(start_at, end_at)
+  def linestring
+    ship.linestring(start_at, end_at)
   end
 
   def boundary
@@ -40,7 +40,7 @@ class Cruise < ActiveRecord::Base
 
     features = []
 
-    linstring.each do |line|
+    linestring.each do |line|
       features << entity_factory.feature(line)
     end
 

@@ -29,7 +29,7 @@ class Ship < ActiveRecord::Base
     positions.order('timestamp').last
   end
 
-  def linstring(from=DateTime.now-1.week, to=DateTime.now)
+  def linestring(from=DateTime.now-1.week, to=DateTime.now)
     positions.where('timestamp > ? and timestamp < ?', from, to).group('ST_X(position::geometry) > 0').pluck('ST_MakeLine(position::geometry ORDER BY timestamp)::geography')
   end
 
@@ -40,8 +40,8 @@ class Ship < ActiveRecord::Base
   def to_features
     entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
     features = []
-    if linstring
-      features << entity_factory.feature(linstring)
+    if linestring
+      features << entity_factory.feature(linestring)
     end
     if position
       features << entity_factory.feature(position.position, id, {
