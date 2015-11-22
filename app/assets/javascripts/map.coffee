@@ -105,6 +105,13 @@ $ ->
     map.on 'resize', (e) ->
       map.options.minZoom = map.getBoundsZoom [[-90,-180],[90,180]], true
 
+    map.on 'moveend', (e) ->
+      center = map.getCenter()
+      if center.lng < -180
+        map.setView([center.lat, center.lng+360], map.getZoom(), {reset: true})
+      else if center.lng > 180
+        map.setView([center.lat, center.lng-360], map.getZoom(), {reset: true})
+
     map.options.minZoom = map.getBoundsZoom [[-90,-180],[90,180]], true
 
     L.tileLayer '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
