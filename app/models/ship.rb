@@ -41,7 +41,9 @@ class Ship < ActiveRecord::Base
     entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
     features = []
     if linestring
-      features << entity_factory.feature(linestring)
+      linestring.each do |line|
+        features << entity_factory.feature(line)
+      end
     end
     if position
       features << entity_factory.feature(position.position, id, {
