@@ -15,7 +15,7 @@ class IstNalaAufKreuzfahrtController < ApplicationController
     @cruise = Cruise.where('end_at > ? ', Time.now-5.days).order(:start_at).first
 
     unless @cruise
-      @cruise = Cruise.order(:start_at).first
+      @cruise = Cruise.order(:end_at).last
     end
 
     if @cruise.start_at > Time.now
