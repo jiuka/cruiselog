@@ -14,6 +14,10 @@ class IstNalaAufKreuzfahrtController < ApplicationController
   def index
     @cruise = Cruise.where('end_at > ? ', Time.now-5.days).order(:start_at).first
 
+    unless @cruise
+      @cruise = Cruise.order(:start_at).first
+    end
+
     if @cruise.start_at > Time.now
       @message = t('.leider_noch_nicht')
       @status = t('.status.leider_noch_nicht')
