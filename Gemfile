@@ -58,7 +58,7 @@ gem 'http_accept_language'
 gem 'dotenv-rails'
 gem 'whenever', :require => false
 
-group :development, :test do
+group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -67,7 +67,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
 
+group :development, :test do
   # Add RSpec Tests
   gem 'rspec-rails', '~> 3.0'
   gem "factory_girl_rails", "~> 4.0"
@@ -83,4 +85,3 @@ group :development, :test do
   # I18n Tasks
   gem 'i18n-tasks'
 end
-
