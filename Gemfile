@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # LeafLet JS
-gem 'leaflet-rails'
+gem 'leaflet-rails', '~> 1.0.0.pre.rc1'
 # FontAwesom
 gem 'font-awesome-sass', '~> 4.3.0'
 
