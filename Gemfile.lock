@@ -58,8 +58,6 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    capistrano-passenger (0.2.0)
-      capistrano (~> 3.0)
     capistrano-rails (1.1.8)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -154,6 +152,7 @@ GEM
     parser (2.3.1.4)
       ast (~> 2.2)
     pg (0.19.0)
+    puma (3.6.2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -271,7 +270,6 @@ DEPENDENCIES
   activerecord-postgis-adapter
   byebug
   capistrano (~> 3.1)
-  capistrano-passenger
   capistrano-rails (~> 1.1)
   clearance
   coffee-rails (~> 4.1.0)
@@ -287,6 +285,7 @@ DEPENDENCIES
   normalize-rails
   paperclip (~> 4.2)
   pg
+  puma
   rails (= 4.2.1)
   rails-i18n
   rgeo-geojson
