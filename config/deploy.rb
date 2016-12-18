@@ -39,8 +39,15 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
-set :passenger_restart_with_touch, true
-
 namespace :deploy do
 
+  task :restart do
+    on roles(:web) do |host|
+      execute '/bin/systemctl --user restart puma'
+      info "Host #{host} restart puma"
+    end
+  end
+
 end
+
+after "deploy", "deploy:restart"
