@@ -1,4 +1,4 @@
-class Ship < ActiveRecord::Base
+class Ship < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -36,7 +36,7 @@ class Ship < ActiveRecord::Base
   def boundary(from=DateTime.now-1.week, to=DateTime.now)
     positions.where('timestamp > ? and timestamp < ?', from, to).group(:mmsi).pluck('ST_Envelope(ST_MakeLine(position::geometry ORDER BY timestamp))').first
   end
- 
+
   def to_features
     entity_factory = ::RGeo::GeoJSON::EntityFactory.instance
     features = []
