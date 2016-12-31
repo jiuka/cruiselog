@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe ShipsController, type: :routing do
   describe "routing" do
 
-    it "routes to #index" do
-      expect(:get => "/ships").to route_to("ships#index")
-    end
+    #it "routes to #index" do
+    #  expect(:get => "/ships").to route_to(controller: 'ships', action:'index')
+    #end
 
     it "routes to #new" do
       expect(:get => "/ships/new").to route_to("ships#new")

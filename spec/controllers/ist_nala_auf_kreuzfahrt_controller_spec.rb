@@ -10,7 +10,7 @@ RSpec.describe IstNalaAufKreuzfahrtController, type: :controller do
 
     it 'does not redirect loop to :leider_noch_nicht' do
       create(:cruise, start_at: Time.now+1.day, end_at: Time.now+10.days)
-      expect(get :index, :status => 'leider_noch_nicht').to render_template(:index)
+      expect(get :index, params: {:status => 'leider_noch_nicht'}).to render_template(:index)
     end
 
     it 'redirects to :ja' do
@@ -20,7 +20,7 @@ RSpec.describe IstNalaAufKreuzfahrtController, type: :controller do
 
     it 'does not redirect loop to :ja' do
       create(:cruise, start_at: Time.now-1.day, end_at: Time.now+10.days)
-      expect(get :index, :status => 'ja').to render_template(:index)
+      expect(get :index, params: {:status => 'ja'}).to render_template(:index)
     end
 
     it 'redirects to :nicht_mehr_lange' do
@@ -30,7 +30,7 @@ RSpec.describe IstNalaAufKreuzfahrtController, type: :controller do
 
     it 'does not redirect loop to :nicht_mehr_lange' do
       create(:cruise, start_at: Time.now-10.day, end_at: Time.now+0.5.days)
-      expect(get :index, :status => 'nicht_mehr_lange').to render_template(:index)
+      expect(get :index, params: {:status => 'nicht_mehr_lange'}).to render_template(:index)
     end
 
     it 'redirects to :leider_nicht_mehr' do
@@ -40,7 +40,7 @@ RSpec.describe IstNalaAufKreuzfahrtController, type: :controller do
 
     it 'does not redirect loop to :leider_nicht_mehr' do
       create(:cruise, start_at: Time.now-10.day, end_at: Time.now-1.days)
-      expect(get :index, :status => 'leider_nicht_mehr').to render_template(:index)
+      expect(get :index, params: {:status => 'leider_nicht_mehr'}).to render_template(:index)
     end
   end
 

@@ -1,6 +1,6 @@
 require 'date'
 
-class Cruise < ActiveRecord::Base
+class Cruise < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 

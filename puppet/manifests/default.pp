@@ -1,16 +1,13 @@
 node default {
 
-  include apt
-  apt::ppa{ 'ppa:brightbox/ruby-ng': }
-  
-  ensure_packages(['ruby2.1-dev', 'bundler', 'postgresql-server-dev-9.3', 'libsqlite3-dev'])
+  ensure_packages(['ruby2.3-dev', 'bundler', 'postgresql-server-dev-9.5', 'libsqlite3-dev'])
 
   class { 'postgresql::server': } 
   class { 'postgresql::server::postgis': } 
 
-  postgresql::server::role { 'vagrant':
+  postgresql::server::role { 'ubuntu':
     superuser      => true,
-    password_hash  => postgresql_password('vagrant','vagrant'),
+    password_hash  => postgresql_password('ubuntu','ubuntu'),
   }
 
   postgresql::server::pg_hba_rule { 'allow to access db':
@@ -18,7 +15,7 @@ node default {
     order       => '001',
     type        => 'local',
     database    => 'all',
-    user        => 'vagrant',
+    user        => 'ubuntu',
     auth_method => 'ident',
   }
 
@@ -26,8 +23,8 @@ node default {
     command => '/usr/bin/bundle install --path=/tmp/cruiselog',
     unless  => '/usr/bin/bundle check',
     cwd     => '/vagrant',
-    user    => 'vagrant',
-    require => Package['ruby2.1-dev']
+    user    => 'ubuntu',
+    require => Package['ruby2.3-dev']
   }
 
 }
