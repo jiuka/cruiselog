@@ -1,5 +1,5 @@
 class IstNalaAufKreuzfahrtController < ApplicationController
-  before_filter :set_locale
+  before_action :set_locale
 
   def default_url_options
     if Rails.env.production?
