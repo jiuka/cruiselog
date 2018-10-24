@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app: &app
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 3000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: mdillon/postgis
+    environment:
+      - POSTGRES_PASSWORD
